@@ -1,0 +1,56 @@
+---
+title: "Twitter Kpop - W2"
+author: "Felita Pratomo s4660121"
+date: "2022-08-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(rtweet)
+```
+
+## Data import
+
+Step 1. collect tweets about kpop
+
+```{r}
+kpop_tweets <- search_tweets(
+  q="kpop",
+  n=18000,
+  include_rts = FALSE,
+  lang="en",
+  retryonratelimit = TRUE
+)
+
+```
+
+Cleaner version:
+
+```{r}
+#look at first 6 obs 
+kpop_tweets%>%
+  head()
+
+#look at structure
+kpop_tweets%>%
+  str()
+
+  
+kpop_short2 <- kpop_tweets%>%
+  select(id, in_reply_to_screen_name, created_at, text, favorite_count, retweet_count)
+
+setwd('/Users/felitapratomo/Desktop/BCO7007 RStudio/BCO7007 Assessments')
+
+kpop_tweets%>%write_csv("kpop_tweets_12_08_22.csv")
+
+kpop_tweets%>%write_csv("kpop_tweets_14_08_22.csv")
+
+kpop_short%>%write_csv("kpop_short_12_08_22.csv")
+
+kpop_short2%>%write_csv("kpop_short_14_08_22.csv")
+
+kpop_tweets <- read.csv("kpop_short_12_08_22.csv")
+
+```
